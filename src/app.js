@@ -15,6 +15,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use(
+  '/',
+  express.Router().get('/', (req, res) => res.send(`Server is running fine!`))
+);
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/tasks', taskRouter);
@@ -27,7 +31,5 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   return errorResponse(res, { statusCode: err.status, message: err.message });
 });
-
-app.get('/', (req, res) => res.send(`Server is running fine!`));
 
 module.exports = app;
